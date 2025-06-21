@@ -1,6 +1,6 @@
 using StudyToolFlashcardUpscaler.Api.Services;
 using StudyToolFlashcardUpscaler.Services;
-
+//Adding a comment for testing the git connection
 var builder = WebApplication.CreateBuilder(args);
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
