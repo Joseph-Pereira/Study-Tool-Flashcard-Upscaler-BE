@@ -45,12 +45,12 @@ namespace StudyToolFlashcardUpscaler.Services
 
             if (_database.Data.cards == null)
                 _database.Data.cards = new List<FlashCardDto>();
-                
-                var highestId = 0;
-                if (_database.Data.cards.Count > 0)
-                    highestId = _database.Data.cards.Max(x => x.Id);
-                
-                newFlashCard.Id = highestId + 1;
+
+            var highestId = 0;
+            if (_database.Data.cards.Count > 0)
+                highestId = _database.Data.cards.Max(x => x.Id);
+
+            newFlashCard.Id = highestId + 1;
 
             _database.Data.cards.Add(newFlashCard);
 
@@ -69,5 +69,26 @@ namespace StudyToolFlashcardUpscaler.Services
 
             return true;
         }
+
+        public FlashCardDto? UpdateFlashCard(FlashCardDto updatedFlashCard)
+        {
+            if (_database.Data == null || _database.Data.cards == null)
+                return null;
+
+            var existingCard = _database.Data.cards.FirstOrDefault(card => card.Id == updatedFlashCard.Id);
+
+            if (existingCard == null)
+                return null;
+
+            // Update the properties
+            existingCard.Question = updatedFlashCard.Question;
+            existingCard.Answer = updatedFlashCard.Answer;
+            existingCard.Options = updatedFlashCard.Options;
+
+            _database.SaveData();
+            return existingCard;
+        }
+
+
     }
 }
