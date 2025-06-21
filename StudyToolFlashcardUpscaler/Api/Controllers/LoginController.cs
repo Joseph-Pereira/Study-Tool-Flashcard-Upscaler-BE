@@ -20,7 +20,7 @@ namespace StudyToolFlashcardUpscaler.Api.Controllers
         /// Retrieves all users from the system.
         /// </summary>
         /// <returns>List of UserDto objects.</returns>
-        [HttpGet]
+        [HttpGet("all-users")]
         public ActionResult<List<UserDto>> GetAllUsers()
         {
             try
@@ -35,7 +35,7 @@ namespace StudyToolFlashcardUpscaler.Api.Controllers
             }
         }
 
-        [HttpGet("get-user")]
+        [HttpPost("get-user")]
         public ActionResult<UserDto> GetUser([FromQuery] string username, [FromQuery] string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
