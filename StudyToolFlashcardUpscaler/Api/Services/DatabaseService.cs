@@ -1,6 +1,6 @@
 using System.Text.Json;
 using StudyToolFlashcardUpscaler.Models.Dtos;
-
+//making a silly cjhange to the backend
 namespace StudyToolFlashcardUpscaler.Api.Services
 {
     public class DatabaseService
@@ -45,5 +45,17 @@ namespace StudyToolFlashcardUpscaler.Api.Services
         public IEnumerable<NoteDto> GetNotes() => Data?.notes ?? Enumerable.Empty<NoteDto>();
         public IEnumerable<FlashCardDto> GetCards() => Data?.cards ?? Enumerable.Empty<FlashCardDto>();
         public IEnumerable<UserDto> GetUsers() => Data?.users ?? Enumerable.Empty<UserDto>();
+
+        // public IEnumerable<UserDto> GetUser(string username, string password)
+        public UserDto? GetUser(string username, string password)
+        {
+            if (Data?.users == null)
+            {
+                return null; // Return null if no users exist
+            }
+
+            return Data.users.FirstOrDefault(user => user.username == username && user.password == password);
+        }
+        
     }
 }

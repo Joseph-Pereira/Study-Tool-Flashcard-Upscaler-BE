@@ -20,7 +20,7 @@ namespace StudyToolFlashcardUpscaler.Api.Controllers
         /// Retrieves all users from the system.
         /// </summary>
         /// <returns>List of UserDto objects.</returns>
-        [HttpGet]
+        [HttpGet("all-users")]
         public ActionResult<List<UserDto>> GetAllUsers()
         {
             try
@@ -33,6 +33,23 @@ namespace StudyToolFlashcardUpscaler.Api.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+        }
+
+        [HttpPost("get-user")]
+        public ActionResult<UserDto> GetUser([FromBody] UserDto userDto)
+        {
+            if (string.IsNullOrEmpty(userDto.username) || string.IsNullOrEmpty(userDto.password))
+            {
+                return BadRequest("Username and password are required.");
+            }
+
+            var user = _userService.GetUser(userDto.username, userDto.password);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            return Ok(user);
         }
 
         [HttpPost("create-user")]
