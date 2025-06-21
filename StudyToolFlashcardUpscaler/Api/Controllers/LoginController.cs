@@ -35,6 +35,23 @@ namespace StudyToolFlashcardUpscaler.Api.Controllers
             }
         }
 
+        [HttpGet("get-user")]
+        public ActionResult<UserDto> GetUser([FromQuery] string username, [FromQuery] string password)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                return BadRequest("Username and password are required.");
+            }
+
+            var user = _userService.GetUser(username, password);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            return Ok(user);
+        }
+
         [HttpPost("create-user")]
         public ActionResult<UserDto> CreateUser([FromBody] UserDto userDto)
         {
