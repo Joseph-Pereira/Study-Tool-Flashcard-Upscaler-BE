@@ -14,6 +14,8 @@ builder.Services.AddScoped<FlashCardService>();
 builder.Services.AddSingleton<DatabaseService>();
 builder.Services.AddTransient<UserService>();
 
+//Hello
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
